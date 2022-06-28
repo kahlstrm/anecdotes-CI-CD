@@ -5,8 +5,11 @@ import { Provider } from 'react-redux'
 import App from '../App'
 import store from '../store'
 import { AnecdoteFormContainer } from '../components/AnecdoteForm'
-
+import AnecdoteList from '../components/AnecdoteList'
+import mockAnecdotes from '../../db.json'
 describe('<App />', () => {
+  store.dispatch({ type: 'INIT', data: mockAnecdotes.anecdotes })
+
   it('should exist text Anecdotes', () => {
     const { container } = render(
       <Provider store={store}>
@@ -15,18 +18,28 @@ describe('<App />', () => {
     )
     expect(container.querySelector('h2')).toHaveTextContent('Anecdotes')
   })
-})
-describe('<AnecdoteForm/>', () => {
-  it('should process creating a new vote properly', () => {
-    const fn = jest.fn()
-    const { getByText, getByTestId } = render(
-      <AnecdoteFormContainer onSubmit={fn} />
-    )
-    fireEvent.change(getByTestId('inputforcreate'), {
-      target: { value: 'this is a test note' },
+  describe('<AnecdoteList/>', () => {
+    it('should list anecdotes', () => {
+      const { getByText } = render(
+        <Provider store={store}>
+          <AnecdoteList />
+        </Provider>
+      )
+      expect(getByText('If it hurts, do it more often')).toBeVisible()
     })
-    fireEvent.click(getByText('create'))
-    expect(fn).toBeCalledTimes(1)
-    expect(fn).toBeCalledWith('this is a test note')
+  })
+  describe('<AnecdoteForm/>', () => {
+    it('should process creating a new vote properly', () => {
+      const fn = jest.fn()
+      const { getByText, getByTestId } = render(
+        <AnecdoteFormContainer onSubmit={fn} />
+      )
+      fireEvent.change(getByTestId('inputforcreate'), {
+        target: { value: 'this is a test note' },
+      })
+      fireEvent.click(getByText('create'))
+      expect(fn).toBeCalledTimes(1)
+      expect(fn).toBeCalledWith('this is a test note')
+    })
   })
 })
