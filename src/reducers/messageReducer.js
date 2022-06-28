@@ -1,15 +1,15 @@
 const messageReducer = (state = '', action) => {
   switch (action.type) {
-    case 'SET':
-      return action.message
-    case 'REMOVE':
-      return ''
-    default:
-      return state
+  case 'SET':
+    return action.message
+  case 'REMOVE':
+    return ''
+  default:
+    return state
   }
 
 }
-let prevTimeoutID;
+let prevTimeoutID
 export const setNotification = (message, time) => {
   return dispatch => {
     dispatch({ type: 'SET', message })
