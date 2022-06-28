@@ -15,6 +15,8 @@ describe('<App />', () => {
     )
     expect(container.querySelector('h2')).toHaveTextContent('Anecdotes')
   })
+})
+describe('<AnecdoteForm/>', () => {
   it('should process creating a new vote properly', () => {
     const fn = jest.fn()
     const { getByText, getByTestId } = render(
