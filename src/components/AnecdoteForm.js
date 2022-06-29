@@ -19,7 +19,7 @@ export const AnecdoteFormContainer = (props) => {
           onChange={({ target }) => setValue(target.value)}
         />
       </div>
-      <button disabled={value !== ''} type="submit">
+      <button disabled={value === ''} type="submit">
         create
       </button>
     </form>
