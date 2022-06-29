@@ -1,6 +1,5 @@
-import { PORT } from '../utils/config'
 import axios from 'axios'
-const baseUrl = `http://localhost:${PORT}/api`
+const baseUrl = '/api'
 
 const getAll = async () => {
   const response = await axios.get(baseUrl)
