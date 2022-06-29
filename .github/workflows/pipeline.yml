@@ -55,7 +55,6 @@ jobs:
       - name: notify success
         uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
         if: ${{ success() }}
-        needs: [deploy]
         with:
           severity: info
           text: New version of Anecdotes deployed
