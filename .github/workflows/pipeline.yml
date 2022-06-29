@@ -26,6 +26,8 @@ jobs:
         run: npm test
       - name: e2e tests
         uses: cypress-io/github-action@v2
+        env:
+          MONGODB_URI_TEST: ${{secrets.MONDODB_TEST_URI}}
         with:
           command: npm run test:e2e
           start: npm run start-test
