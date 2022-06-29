@@ -32,3 +32,32 @@ jobs:
           command: npm run test:e2e
           start: npm run start-test
           wait-on: http://localhost:5000
+      - name: notify build fail
+        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+        if: ${{ failure() }}
+        with:
+          severity: error
+          text: 'Build failed'
+          description: commit ${{github.event.head_commit.url}} by ${{github.event.head_commit.committer.username}} broke the build :(
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          avatarUrl: https://avatars.githubusercontent.com/kqlski
+      - name: deploy
+        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message),'#skip') }}
+        uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: 'fsopen-anecdotes' #Must be unique in Heroku
+          heroku_email: 'kale9088@gmail.com'
+          healthcheck: 'https://fsopen-anecdotes.herokuapp.com/health'
+          delay: 5
+          checkstring: 'ok'
+          rollbackonhealthcheckfailed: true
+      - name: notify success
+        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+        if: ${{ success() }}
+        with:
+          severity: info
+          text: New version of Pokedex deployed
+          description: on https://fsopen-anecdotes.herokuapp.com
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          avatarUrl: https://avatars.githubusercontent.com/kqlski
