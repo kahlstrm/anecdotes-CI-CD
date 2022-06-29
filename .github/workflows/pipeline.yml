@@ -57,7 +57,7 @@ jobs:
         if: ${{ success() }}
         with:
           severity: info
-          text: New version of Pokedex deployed
+          text: New version of Anecdotes deployed
           description: on https://fsopen-anecdotes.herokuapp.com
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           avatarUrl: https://avatars.githubusercontent.com/${{github.event.head_commit.committer.username}}
