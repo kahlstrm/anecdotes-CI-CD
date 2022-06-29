@@ -1,9 +1,16 @@
 const router = require('express').Router()
+const db = require('../db.json')
 const Anecdote = require('./models/Anecdote')
 
 router.get('/', async (req, res) => {
   const results = await Anecdote.find({})
   res.json(results)
+})
+router.get('/testing/reset', async (_, res) => {
+  if (process.env.NODE_ENV !== 'test') return
+  await Anecdote.deleteMany({})
+  await Anecdote.insertMany(db.anecdotes)
+  res.status(200).send('reset')
 })
 router.post('/', async (req, res) => {
   const newAnecdote = req.body
