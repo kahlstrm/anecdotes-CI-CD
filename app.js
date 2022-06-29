@@ -4,8 +4,6 @@ const mongoose = require('mongoose')
 const apiRouter = require('./api/router')
 const app = express()
 const PORT = process.env.PORT | 5000
-// eslint-disable-next-line no-console
-console.log(process.env.NODE_ENV)
 const mongo_URL =
   process.env.NODE_ENV === 'test'
     ? process.env.MONGODB_URI_TEST
