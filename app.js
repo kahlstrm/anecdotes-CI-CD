@@ -3,7 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const apiRouter = require('./api/router')
 const app = express()
-const PORT = process.env.PORT | 5000
+const PORT = process.env.PORT || 5000
 const mongo_URL =
   process.env.NODE_ENV === 'test'
     ? process.env.MONGODB_URI_TEST
