@@ -8,6 +8,7 @@ export const AnecdoteFormContainer = (props) => {
       onSubmit={(event) => {
         event.preventDefault()
         props.onSubmit(value)
+        setValue('')
       }}
     >
       <div>
@@ -18,7 +19,9 @@ export const AnecdoteFormContainer = (props) => {
           onChange={({ target }) => setValue(target.value)}
         />
       </div>
-      <button type="submit">create</button>
+      <button disabled={value !== ''} type="submit">
+        create
+      </button>
     </form>
   )
 }
