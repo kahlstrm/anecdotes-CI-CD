@@ -54,7 +54,7 @@ jobs:
           rollbackonhealthcheckfailed: true
       - name: notify success
         uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
-        if: ${{ success() }}
+        if: ${{ success() && github.event_name == 'push' && !contains(join(github.event.commits.*.message),'#skip') }}
         with:
           severity: info
           text: New version of Anecdotes deployed
