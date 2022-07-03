@@ -1,5 +1,5 @@
 # Anecdotes Reducer
-A simple monorepo fullstack app for storing and voting on anecdotes with heroku deployment.
+A simple monorepo fullstack app for storing and voting on anecdotes with heroku deployment & MongoDB database.
 ## Commands
 Clone using
 
